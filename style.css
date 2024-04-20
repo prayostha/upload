@@ -1,0 +1,20 @@
+function doGet(e) {
+		const userEmail = Session.getActiveUser().getEmail();
+		logUserVisit(userEmail);
+		return HtmlService.createHtmlOutputFromFile('WebApp')
+      .setTitle('Insurance Premium Calculator')
+      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+}
+
+function logUserVisit(userEmail) {
+  const sheet = openSheet2();
+  const currentDate = new Date();
+  Logger.log("User Email: " + userEmail);
+  Logger.log("Current Date: " + currentDate);
+  sheet.appendRow([userEmail, currentDate]);
+}
+
+function openSheet2() {
+  const sheetId2 = '1DIYvYwczgELx9GxeZkK_2gCa-iLd-ZxfyWWwzyYk6C4';
+  return SpreadsheetApp.openById(sheetId2).getActiveSheet();
+}
